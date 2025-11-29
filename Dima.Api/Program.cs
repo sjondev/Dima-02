@@ -1,5 +1,7 @@
 using Dima.Api.Data;
 using Dima.Core.Models;
+using Dima.Core.Requests.Categories;
+using Dima.Core.Responses;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -26,10 +28,10 @@ app.UseSwaggerUI();
 // Construindo os pontos de acesso á nossa API.
 app.MapPost(
     "/v1/categories", 
-    (Request req, Handler handler) => handler.Handle(req))
+    (CreateCategoryRequest req, Handler handler) => handler.Handle(req))
     .WithName("Categories/Create")
     .WithSummary("Cria uma nova categoria")
-    .Produces<Response>();
+    .Produces<Response<Category>>();
 
 app.Run();
 
