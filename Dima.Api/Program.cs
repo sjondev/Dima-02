@@ -30,10 +30,35 @@ app.UseSwaggerUI();
 // Construindo os pontos de acesso á nossa API.
 app.MapPost(
     "/v1/categories", 
-    (CreateCategoryRequest req, ICategoryHandler handler) => handler.CreateAsync(req))
+    async (CreateCategoryRequest req, ICategoryHandler handler) => await handler.CreateAsync(req))
     .WithName("Categories/Create")
     .WithSummary("Cria uma nova categoria")
-    .Produces<Response<Category>>();
+    .Produces<Response<Category?>>();
+
+app.MapPut(
+        "/v1/categories/{id:long}",
+        async (
+            long id,
+            UpdateCategoryRequest req,
+            ICategoryHandler handler) =>
+        {
+            req.Id = id;
+            return await handler.UpdateAsync(req);
+        })
+    .WithName("Categories/Update")
+    .WithSummary("Atualiza uma categoria")
+    .Produces<Response<Category?>>();
+
+app.MapDelete(
+        "/v1/categories/{id:long}",
+        async (long id, ICategoryHandler handler) =>
+        {
+            var request = new DeleteCategoryRequest { Id = id };
+            return await handler.DeleteAsync(request);
+        })
+    .WithName("Categories/Delete")
+    .WithSummary("Deleta uma categoria")
+    .Produces<Response<Category?>>(); 
 
 app.Run();
 
