@@ -60,6 +60,28 @@ app.MapDelete(
     .WithSummary("Deleta uma categoria")
     .Produces<Response<Category?>>(); 
 
+    app.MapGet(
+            "/v1/categories/{id:long}",
+            async (long id, ICategoryHandler handler) =>
+            {
+                var request = new GetCategoryByIdRequest { Id = id, UserId = "teste@jonatas.io"};
+                return await handler.GetByIdAsync(request);
+            })
+        .WithName("Categories/GetById")
+        .WithSummary("Pegando uma categoria por id")
+        .Produces<Response<Category?>>();
+
+    app.MapGet(
+            "/v1/categories",
+            async (ICategoryHandler handler) =>
+            {
+                var request = new GetAllCategoriesRequest { UserId = "teste@jonatas.io"};
+                return await handler.GetAllAsync(request);
+            })
+        .WithName("Categories/Get")
+        .WithSummary("Pegando todas  categorias")
+        .Produces<Response<List<Category>?>>(); 
+
 app.Run();
 
 

@@ -1,4 +1,5 @@
-﻿using Dima.Api.Data;
+﻿using System.Runtime.InteropServices;
+using Dima.Api.Data;
 using Dima.Core.Handlers;
 using Dima.Core.Models;
 using Dima.Core.Requests.Categories;
@@ -78,13 +79,51 @@ public class CategoryHandler(AppDbContext context) : ICategoryHandler
         }
     }
 
-    public Task<Response<Category?>> GetByIdAsync(GetCategoryByIdRequest request)
+    public async Task<Response<Category?>> GetByIdAsync(GetCategoryByIdRequest request)
     {
-        throw new NotImplementedException();
+        try
+        {
+            var category = await context
+                .Categories
+                .AsNoTracking()
+                .FirstOrDefaultAsync(x => x.Id == request.Id && x.UserId == request.UserId);
+
+            return category is null
+                ? new Response<Category?>(null, 404, "Categoria não encontrada")
+                : new Response<Category?>(category);
+        }
+        catch
+        {
+            return new Response<Category?>(null, 500, "Não foi possível recuperar a categoria");
+        }
     }
 
-    public Task<Response<List<Category>>> GetAllAsync(GetAllCategoryRequest request)
+    public async Task<PagedResponse<List<Category>>> GetAllAsync(GetAllCategoriesRequest request)
     {
-        throw new NotImplementedException();
+        try
+        {
+            var query = context
+                .Categories
+                .AsNoTracking()
+                .Where(x => x.UserId == request.UserId)
+                .OrderBy(x => x.Title);
+
+            var categories = await query
+                .Skip((request.PageNumber - 1) * request.PageSize)
+                .Take(request.PageSize)
+                .ToListAsync();
+
+            var count = await query.CountAsync();
+
+            return new PagedResponse<List<Category>>(
+                categories,
+                count,
+                request.PageNumber,
+                request.PageSize);
+        }
+        catch
+        {
+            return new PagedResponse<List<Category>>(null, 500, "Não foi possível consultar as categorias");
+        }
     }
 }
