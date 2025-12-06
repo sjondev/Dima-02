@@ -25,7 +25,7 @@ public class GetAllCategoryEndpoint : IEndpoint
     {
         var request = new GetAllCategoriesRequest
         {
-            UserId = "jonatas@balta.io",
+            UserId = "jonatas@teste.com",
             PageNumber = pageNumber,
             PageSize =  pageSize
         };

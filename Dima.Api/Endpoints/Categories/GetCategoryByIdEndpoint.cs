@@ -22,7 +22,7 @@ public class GetCategoryByIdEndpoint : IEndpoint
     {
         var request = new GetCategoryByIdRequest
         {
-            UserId = "jonatas@balta.io",  
+            UserId = "jonatas@teste.com",  
             Id = id
         };
         

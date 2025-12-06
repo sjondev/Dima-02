@@ -21,7 +21,7 @@ public class UpdateCategoryEndpoint : IEndpoint
         UpdateCategoryRequest request,
         long id)
     {
-        request.UserId = "jonatas@balta.io";
+        request.UserId = "jonatas@teste.com";
         request.Id = id;
         
         var result = await handler.UpdateAsync(request);

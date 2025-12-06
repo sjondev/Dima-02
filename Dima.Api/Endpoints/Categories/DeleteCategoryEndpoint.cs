@@ -22,7 +22,7 @@ public class DeleteCategoryEndpoint : IEndpoint
     {
         var request = new DeleteCategoryRequest
         {
-            UserId = "jonatas@balta.io",
+            UserId = "jonatas@teste.com",
             Id = id
         };
         
