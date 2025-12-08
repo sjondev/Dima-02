@@ -3,7 +3,7 @@ using Dima.Core.Enums;
 
 namespace Dima.Core.Requests.Transactions;
 
-public abstract class CreateTransactionRequest : Request
+public class CreateTransactionRequest : Request
 {
     [Required(ErrorMessage = "Titulo invalido")]
     public string Title { get; set; } = string.Empty;
