@@ -22,6 +22,7 @@ builder.Services.AddSwaggerGen(x =>
     x.CustomSchemaIds(n => n.FullName);
 });
 builder.Services.AddTransient<ICategoryHandler, CategoryHandler>();
+builder.Services.AddTransient<ITransactionHandler, TransactionHandler>();
 
 var app = builder.Build();
 
