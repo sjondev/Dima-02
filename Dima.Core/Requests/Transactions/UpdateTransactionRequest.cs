@@ -10,6 +10,9 @@ public class UpdateTransactionRequest : Request
     [Required(ErrorMessage = "Tipo invalido")]
     public ETransactionType Type { get; set; }
     
+    [Required(ErrorMessage = "Titulo invalido")]
+    public string Title { get; set; } = string.Empty;
+    
     [Required(ErrorMessage = "Valor invalido")]
     public decimal Amount { get; set; }
     
