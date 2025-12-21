@@ -1,5 +1,6 @@
 ﻿@page "/register"
 @layout HeadlessLayout
+@inherits RegisterPage
 
 <PageTitle>Dima - Registro</PageTitle>
 
@@ -13,42 +14,43 @@
                     width="200"
                 />
             </div>
-            <MudForm @ref="_mudForm">
+            <EditForm Model="@InputModel" OnValidSubmit="OnValidSubmitAsync">
+                <DataAnnotationsValidator />
+                @* <ValidationSummary /> *@
+                
+
                 <MudTextField
                     T="string"
                     Label="E-mail"
-                    Required="true"
+                    HelperText="Campo obrigatorio"
                     InputType="InputType.Email"
-                    RequiredError="Informe o E-mail"
-                    Validation="@(new EmailAddressAttribute { ErrorMessage = "E-mail invalido! "})"
+                    For="@(() => InputModel.Email)"
+                    @bind-Value="InputModel.Email"
                 />
                 
                 <MudTextField
                     T="string"
                     Label="Senha"
+                    HelperText="Campo obrigatorio"
                     InputType="InputType.Password"
-                    Required="true"
-                    RequiredError="Informe a senha"
-                />
+                    For="@(() => InputModel.Password)"
+                    @bind-Value="InputModel.Password"
+                    />
                 
-                <MudTextField
-                    T="string"
-                    Label="Confirme a senha"
-                    InputType="InputType.Password"
-                    Required="true"
-                    RequiredError="Informe a confirmação da senha"
-                />
-            </MudForm>
-            
-            <div class="d-flex justify-center mt-8">
-                <MudButton Variant="Variant.Filled" Color="Color.Primary">Registrar</MudButton>
-                <MudSpacer />
-                <MudButton Href="/login" Variant="Variant.Filled" Color="Color.Dark">Ja tenho uma conta</MudButton>
-            </div>
+                
+                <div class="d-flex justify-center mt-8">
+                    @if (IsBusy)
+                    {
+                        <MudProgressCircular Color="Color.Info" Indeterminate="true" />
+                    }
+                    else
+                    {
+                        <MudButton ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="Color.Primary">Registrar</MudButton>
+                        <MudSpacer />
+                        <MudButton Href="/login" Variant="Variant.Filled" Color="Color.Dark">Ja tenho uma conta</MudButton>
+                    }
+                </div>
+            </EditForm>
         </MudPaper>
     </MudItem>
 </MudGrid>
-
-@code {
-    MudForm? @_mudForm;
-}
