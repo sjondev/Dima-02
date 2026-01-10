@@ -18,5 +18,5 @@ public class CreateTransactionRequest : Request
     public long CategoryId { get; set; }
     
     [Required(ErrorMessage = "Data invalida")]
-    public DateTime PaidOrReceivedAt { get; set; }
+    public DateTime? PaidOrReceivedAt { get; set; }
 }

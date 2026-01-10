@@ -10,7 +10,7 @@ namespace Dima.Api.Endpoints.Transactions;
 public class UpdateTransactionEndpoint : IEndpoint
 {
     public static void Map(IEndpointRouteBuilder app)
-        => app.MapPut("/{id}", HandleAsync)
+        => app.MapPut("/", HandleAsync)
             .WithName("Transactions: Update")
             .WithSummary("Atualiza uma transação")
             .WithDescription("Atualiza uma transação")
@@ -20,11 +20,11 @@ public class UpdateTransactionEndpoint : IEndpoint
     private static async Task<IResult> HandleAsync(
         ClaimsPrincipal user,
         ITransactionHandler handler,
-        UpdateTransactionRequest request,
-        long id)
+        UpdateTransactionRequest request
+        )
     {
         request.UserId = user.Identity?.Name ?? string.Empty;
-        request.Id = id;
+        request.Id = request.Id;
         
         var result = await handler.UpdateAsync(request);
         return result.IsSuccess

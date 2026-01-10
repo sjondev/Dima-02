@@ -1,19 +1,37 @@
-﻿@inherits LayoutComponentBase
+﻿@using Dima.Web.Components
+@inherits LayoutComponentBase
 
 <MudThemeProvider @ref="_mudThemeProvider" @bind-IsDarkMode="@_isDarkmode" Theme="Configuration.ThemeOne" />
+<MudDialogProvider />
+<MudPopoverProvider />
 <MudSnackbarProvider />
 
 <AuthorizeView>
     <Authorized>
         <MudLayout>
             <MudAppBar>
+                <MudIconButton
+                    Icon="@Icons.Material.Filled.Menu"
+                    Color="Color.Inherit"
+                    Edge="Edge.Start"
+                    OnClick="@ToggleDrawer"
+                    />
                 <h2>Dima</h2>
                 <MudSpacer/>
                 <MudText Typo="Typo.caption">
                     @context.User.Identity?.Name
                 </MudText>
-                <MudSwitch T="bool" @bind-Value="_isDarkmode"/>
+                <MudSwitch 
+                    Color="Color.Inherit" 
+                    T="bool" 
+                    @bind-Value="_isDarkmode" 
+                    Class="ma-4" 
+                    ThumbIcon="@Icons.Material.TwoTone.Lightbulb"
+                    />
             </MudAppBar>
+            <MudDrawer @bind-Open="_isDrawer">
+                <NavMenu />
+            </MudDrawer>
             <MudMainContent>
                 <MudContainer>
                     @Body
@@ -29,7 +47,9 @@
 
 @code {
     private bool _isDarkmode = true;
-
+    private bool _isDrawer = true;
+        
+    
     private MudThemeProvider _mudThemeProvider = null!;
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
@@ -48,6 +68,6 @@
         StateHasChanged();
         return Task.CompletedTask;
     }
-    
-    
+
+    private void ToggleDrawer() => _isDrawer = !_isDrawer;
 }
