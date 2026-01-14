@@ -18,6 +18,14 @@
                     />
                 <h2>Dima</h2>
                 <MudSpacer/>
+                <MudButton
+                    Href="/lancamentos/novo"
+                    Variant="Variant.Text" 
+                    Color="Color.Dark" 
+                    StartIcon="@Icons.Material.TwoTone.Add">
+                    NOVO LANÇAMENTO
+                </MudButton>
+                <MudSpacer/>
                 <MudText Typo="Typo.caption">
                     @context.User.Identity?.Name
                 </MudText>

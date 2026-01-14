@@ -54,6 +54,7 @@ public static class BuilderExtension
         // configurando um banco de dados com useSqlServer, mais posso ter varios.
         builder.Services.AddTransient<ICategoryHandler, CategoryHandler>();
         builder.Services.AddTransient<ITransactionHandler, TransactionHandler>();
+        builder.Services.AddTransient<IReportsHandler, ReportHandler>();
     }
 
     public static void AddCrossOrigin(this WebApplicationBuilder builder)
