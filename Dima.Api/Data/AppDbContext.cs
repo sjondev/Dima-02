@@ -25,6 +25,11 @@ public class AppDbContext(DbContextOptions<AppDbContext> options)
     /*  Entrada e Saida do dinheiro */
     public DbSet<Category> Categories { get; set; } = null!; // estudar depois o null not não entendi muito bem!
     public DbSet<Transaction> Transactions { get; set; } = null!;
+    
+    // Area de pedidos e pagamentos.
+    public DbSet<Product> Products { get; set; } = null!;
+    public DbSet<Order> Orders { get; set; } = null!;
+    public DbSet<Voucher> Vouchers { get; set; } = null!;
 
     
     /* REPORTS - Relatorios */
