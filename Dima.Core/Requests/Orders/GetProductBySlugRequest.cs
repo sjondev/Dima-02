@@ -1,6 +1,6 @@
 ﻿namespace Dima.Core.Requests.Orders;
 
-public class GetProductByIdRequest
+public class GetProductBySlugRequest : Request
 {
-    
+    public string Slug { get; set; } = string.Empty;
 }

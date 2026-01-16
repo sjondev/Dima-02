@@ -1,6 +1,6 @@
 ﻿namespace Dima.Core.Requests.Orders;
 
-public class GetAllOrderRequest
+public class GetAllOrdersRequest : PagedRequest
 {
     
 }

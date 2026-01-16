@@ -1,6 +1,10 @@
-﻿namespace Dima.Core.Handlers;
+﻿using Dima.Core.Models;
+using Dima.Core.Requests.Orders;
+using Dima.Core.Responses;
 
-public interface IVoucherHandler
+namespace Dima.Core.Handlers;
+
+public interface IVoucherHandler 
 {
-    
+    Task<Response<Voucher?>> GetByNumberVoucherAsync(GetVoucherByNumberRequest request);
 }
